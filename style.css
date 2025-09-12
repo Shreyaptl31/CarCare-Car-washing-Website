@@ -1,0 +1,84 @@
+.bg-image {
+  background-image: url(img/bg1.jpg);
+  background-color: rgba(0, 0, 0, 0.674);
+  background-blend-mode: color-burn;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.custom-navbar {
+  background-color: #1e6872;
+}
+
+body {
+  background: #f0f2f5;
+}
+
+.booking-card {
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.07);
+  padding: 2rem;
+}
+
+.form-section-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #343a40;
+  border-bottom: 2px solid #dee2e6;
+  padding-bottom: 0.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.bg-banner {
+  background-color: #212529;
+  background-image: url("img/dark-bg-pattern.png");
+  background-size: cover;
+  background-blend-mode: multiply;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode .booking-card,
+body.dark-mode .bg-light {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  border-color: #444;
+}
+
+body.dark-mode .form-control {
+  background-color: #333;
+  color: #fff;
+  border-color: #555;
+}
+
+input,
+select,
+textarea {
+  transition: all 0.3s ease;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  transform: scale(1.02);
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+}
+
+.from_butn{
+  background-color:  #1e6872;
+  border-radius: 20px;
+  border: none;
+}
+

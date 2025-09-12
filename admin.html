@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>CarCare Admin Panel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- bootstrap cdn  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- chart  -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+ <!-- js link  -->
+    <script src="admin.js"></script>
+
+  <style>
+    body {
+      display: flex;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .sidebar {
+      min-width: 220px;
+      background-color: #042f35;
+      color: white;
+    }
+
+    .sidebar .nav-link {
+      color: #adb5bd;
+    }
+
+    .sidebar .nav-link.active {
+      background-color: yellow;
+      color: black;
+    }
+
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+      background-color: #f8f9fa;
+      overflow-y: auto;
+      width: 100%;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    .card {
+      background-color: #177d8afe;
+      border-radius: 1rem;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <div class="sidebar d-flex flex-column p-3">
+    <h4 class="text-white">CarCare Admin</h4>
+    <hr class="text-white" />
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li><a href="#" class="nav-link active" onclick="showSection('dashboard', event)">Dashboard</a></li>
+      <li><a href="#" class="nav-link" onclick="showSection('users', event)">Users</a></li>
+      <li><a href="#" class="nav-link" onclick="showSection('services', event)">Services</a></li>
+      <li><a href="#" class="nav-link" onclick="showSection('payments', event)">Payments</a></li>
+    </ul>
+    <hr />
+    <button class="btn btn-light" onclick="logout()">Logout</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <div id="dashboard" class="row">
+      <div class="col-12">
+        <h2 class="fw-bold">Admin Dashboard</h2>
+        <hr />
+      </div>
+
+      <!-- Card: Total Bookings -->
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body text-center">
+            <h5 class="card-title text-warning">Total Bookings</h5>
+            <h2 class="display-5 fw-bold" id="totalBookings">0</h2>
+            <p class="text-muted mb-0">All time</p>
+          </div>
+        </div>
+      </div> 
+
+      <!-- Card: Total Users -->
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body text-center">
+            <h5 class="card-title text-warning">Total Users</h5>
+            <h2 class="display-5 fw-bold" id="totalUsers">0</h2>
+            <p class="text-muted mb-0">Unique customers</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: Active Services -->
+      <div class="col-md-4">
+        <div class="card shadow-sm border-0">
+          <div class="card-body text-center">
+            <h5 class="card-title text-warning">Active Services</h5>
+            <h2 class="display-5 fw-bold" id="activeServices">0</h2>
+            <p class="text-muted mb-0">Pending or upcoming</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Monthly Income Chart -->
+      <div class="col-12 mt-5">
+        <div class="card_graph shadow-sm border-0 p-4">
+          <h4 class="fw-bold text-warning mb-4">Monthly Income Overview</h4>
+          <canvas id="incomeChart" height="35"></canvas>
+          <p class="mt-3 fw-semibold">Total Income: <span id="totalIncome">₹ 0.00</span></p>
+        </div>
+      </div>
+    </div>
+    <!-- UserData -->
+    <div id="users" class="d-none">
+      <h3>User Data</h3>
+      <hr>
+      <div class="table-wrapper">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Contact</th>
+              <th>Email</th>
+              <th>Vehical Name</th>
+              <th>Vehical Number</th>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Payment</th>
+              <th>Status</th>
+              <th>Actions</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody id="userTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Service data  -->
+    <div id="services" class="d-none">
+      <h3>Service Data</h3>
+      <hr>
+      <div class="table-wrapper">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Vehicle</th>
+              <th>Service</th>
+              <th>Date</th>
+              <th>Time</th>
+            </tr>
+          </thead>
+          <tbody id="serviceTable"></tbody>
+        </table>
+      </div>
+    </div>
+    <!-- pyment data -->
+    <div id="payments" class="d-none">
+      <h3>Payment Data</h3>
+      <hr>
+      <div class="table-wrapper">
+        <table class="table table-bordered table-striped">
+          <thead class="table-dark">
+            <tr>
+              <th>Name</th>
+              <th>Service</th>
+              <th>Price</th>
+              <th>Payment Method</th>
+            </tr>
+          </thead>
+          <tbody id="paymentTable"></tbody>
+          
+        </table>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
